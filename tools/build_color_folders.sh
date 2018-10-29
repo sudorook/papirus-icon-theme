@@ -34,6 +34,7 @@ SCRIPT_DIR="$(dirname "${BASH_SOURCE[0]}")"
 TARGET_DIR="$SCRIPT_DIR/../Papirus"
 
 DEFAULT_COLOR="blue"
+DEFAULT_ADAPTA_COLOR="cyan"
 SIZES_REGEX="(16x16|22x22|24x24|32x32|48x48|64x64)"
 COLOR_SIZES_REGEX="(22x22|24x24|32x32|48x48|64x64)"
 FILES_REGEX="(folder|user)-"
@@ -195,6 +196,8 @@ COLOR_NAMES="${!COLORS[*]}"  # get a string of colors
 COLOR_REGEX="(${COLOR_NAMES// /|})"  # convert the list of colors to regex
 DERIVATIVES=(
 	ePapirus
+	Papirus-Adapta
+	Papirus-Adapta-Nokto
 	Papirus-Dark
 )  # array of derivative icon themes with 16x16 places
 
@@ -205,4 +208,25 @@ find "$TARGET_DIR" -regextype posix-extended \
 	for d in "${DERIVATIVES[@]}"; do
 		cp -P --remove-destination "$file" "${file/Papirus/$d}"
 	done
+done
+
+
+headline "PHASE 6: Copy places icons to Pairus-Adapta ..."
+# -----------------------------------------------------------------------------
+for size in 22x22 24x24 32x32 48x48 64x64; do
+	rsync -a --delete "$TARGET_DIR/$size/places" \
+		"$TARGET_DIR/../Papirus-Adapta/$size/"
+done
+
+
+headline "PHASE 7: Remap symlinks for Papirus-Adapta ..."
+# -----------------------------------------------------------------------------
+find "$TARGET_DIR/../Papirus-Adapta" -type f -regextype posix-extended \
+	-regex ".*/${COLOR_SIZES_REGEX}/places/${FILES_REGEX}${DEFAULT_ADAPTA_COLOR}[-\.].*" \
+	-print0 | while read -r -d $'\0' file; do
+
+	target="$(basename "$file")"
+	symlink="${file/-$DEFAULT_ADAPTA_COLOR/}"
+
+	ln -sf "$target" "$symlink"
 done

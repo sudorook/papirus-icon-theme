@@ -51,6 +51,22 @@ add_class_symbolic() {
 		"$@"
 }
 
+# Papirus-Adapta and Papirus-Adapta-Nokto
+add_class_adapta() {
+	# 1. remove class="ColorScheme-*" if currentColor is missing
+	# 2. remove class="ColorScheme-*" if color property is set
+	# 3. add a class if color value matches
+	sed -i -r \
+		-e '/:currentColor/! s/[ ]class="ColorScheme-[^"]+"//g' \
+		-e '/[^-]color:[^;"]/ s/[ ]class="ColorScheme-[^"]+"//g' \
+		-e '/([^-]color|fill|stop-color|stroke):(#414c52|#cfd8dc|#6e6e6e|#ffffff)/I s/(style="[^"]+")/\1 class="ColorScheme-Text"/' \
+		-e '/([^-]color|fill|stop-color|stroke):#00bcd4/I s/(style="[^"]+")/\1 class="ColorScheme-Highlight"/' \
+		-e '/([^-]color|fill|stop-color|stroke):#4caf50/I s/(style="[^"]+")/\1 class="ColorScheme-PositiveText"/' \
+		-e '/([^-]color|fill|stop-color|stroke):#ff9800/I s/(style="[^"]+")/\1 class="ColorScheme-NeutralText"/' \
+		-e '/([^-]color|fill|stop-color|stroke):#f44336/I s/(style="[^"]+")/\1 class="ColorScheme-NegativeText"/' \
+		"$@"
+}
+
 replace_hex_to_current_color() {
 	# if class exist:
 	#   - remove color

@@ -62,6 +62,83 @@ for theme in "${THEMES[@]##*/}"; do
 			# copy files and symlinks
 			find "$SOURCE_DIR" -maxdepth 1 -type d | while read -r dir; do
 				context_dir=$(basename "$dir")
+		
+				case "$context_dir" in
+					actions)
+						mkdir -p "$theme_dir/$context_dir"
+						find "$SOURCE_DIR/$context_dir" \
+							-name '*@16x16.svg' -print0 -o \
+							-name '*@18x18.svg' -print0 -o \
+							-name '*@22x22.svg' -print0 -o \
+							-name '*@24x24.svg' -print0 | xargs -0 -i \
+								cp -afv '{}' "$theme_dir/$context_dir"
+						;;
+					devices|places)
+						mkdir -p "$theme_dir/$context_dir"
+						find "$SOURCE_DIR/$context_dir" \
+							-name '*@16x16.svg' -print0 | xargs -0 -i \
+								cp -afv '{}' "$theme_dir/$context_dir"
+						;;
+				esac
+			done
+		
+			# convert color scheme
+			find "$theme_dir" -type f -name '*.svg' -exec sed -i \
+				-e 's/#444444/#ffffff/gI' '{}' \;
+			;;
+		Papirus-Adapta)
+			# copy files and symlinks
+			find "$SOURCE_DIR" -maxdepth 1 -type d | while read -r dir; do
+				context_dir=$(basename "$dir")
+
+				case "$context_dir" in
+					actions)
+						mkdir -p "$theme_dir/$context_dir"
+						find "$SOURCE_DIR/$context_dir" \
+							-name '*@16x16.svg' -print0 -o \
+							-name '*@18x18.svg' -print0 -o \
+							-name '*@22x22.svg' -print0 -o \
+							-name '*@24x24.svg' -print0 | xargs -0 -i \
+								cp -afv '{}' "$theme_dir/$context_dir"
+						;;
+					devices)
+						mkdir -p "$theme_dir/$context_dir"
+						find "$SOURCE_DIR/$context_dir" \
+							-name '*@16x16.svg' -print0 | xargs -0 -i \
+								cp -afv '{}' "$theme_dir/$context_dir"
+						;;
+					panel)
+						mkdir -p "$theme_dir/$context_dir"
+						find "$SOURCE_DIR/$context_dir" \
+							-name '*@16x16.svg' -print0 -o \
+							-name '*@22x22.svg' -print0 -o \
+							-name '*@24x24.svg' -print0 | xargs -0 -i \
+								cp -afv '{}' "$theme_dir/$context_dir"
+						;;
+					places)
+						mkdir -p "$theme_dir/$context_dir"
+						find "$SOURCE_DIR/$context_dir" \
+							-name '*@16x16.svg' -print0 -o \
+							-name '*@22x22.svg' -print0 -o \
+							-name '*@24x24.svg' -print0 -o \
+							-name '*@32x32.svg' -print0 -o \
+							-name '*@48x48.svg' -print0 -o \
+							-name '*@64x64.svg' -print0 | xargs -0 -i \
+								cp -afv '{}' "$theme_dir/$context_dir"
+						;;
+				esac
+			done
+
+			# convert color scheme
+			find "$theme_dir" -type f -name '*.svg' -exec sed -i \
+				-e 's/#5c616c/#414c52/gI' \
+				-e 's/#d3dae3/#cfd8dc/gI' \
+				-e 's/#5294e2/#00bcd4/gI' '{}' \;
+			;;
+		Papirus-Adapta-Nokto)
+			# copy files and symlinks
+			find "$SOURCE_DIR" -maxdepth 1 -type d | while read -r dir; do
+				context_dir=$(basename "$dir")
 
 				case "$context_dir" in
 					actions)
@@ -84,7 +161,8 @@ for theme in "${THEMES[@]##*/}"; do
 
 			# convert color scheme
 			find "$theme_dir" -type f -name '*.svg' -exec sed -i \
-				-e 's/#444444/#ffffff/gI' '{}' \;
+				-e 's/#5c616c/#cfd8dc/gI' \
+				-e 's/#5294e2/#00bcd4/gI' '{}' \;
 			;;
 		Papirus-Dark)
 			# copy files and symlinks
