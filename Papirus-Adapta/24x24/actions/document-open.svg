@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" version="1.1">
  <defs>
   <style id="current-color-scheme" type="text/css">
-   .ColorScheme-Text { color:#414c52; } .ColorScheme-Highlight { color:#00bcd4; }
+   .ColorScheme-Text { color:#444444; } .ColorScheme-Highlight { color:#4285f4; } .ColorScheme-NeutralText { color:#ff9800; } .ColorScheme-PositiveText { color:#4caf50; } .ColorScheme-NegativeText { color:#f44336; }
   </style>
  </defs>
- <path style="fill:currentColor" class="ColorScheme-Text" d="M 8 0.72265625 L 3.6171875 7.0292969 L 5.9921875 7.0292969 L 6.0019531 13 L 10 13 L 9.9902344 7.0292969 L 12.332031 7.0292969 L 8 0.72265625 z M 1 14.03125 L 1 16 L 15.005859 16 L 15 14.03125 L 1 14.03125 z" transform="translate(4 4)"/>
+ <path style="fill:currentColor" class="ColorScheme-Text" d="m 6.0000001,5.0000003 c 0,0 -1.0000001,0 -1.0000001,1 V 15 18 c 0,1 1.0000001,1 1.0000001,1 h 2 v -2 h -1 V 7.0097659 H 15 V 9.0000001 12 12 h 2.000003 V 10.25 5.9999999 c 0,-1 -1,-1 -1,-1 z M 9.7148439,11 c 0,0 -0.7148438,-9.01e-4 -0.7148438,0.691406 v 7.617188 c 0,0 5.581e-4,0.691406 0.7148438,0.691406 H 18.285156 C 18.285156,20 19,20.000902 19,19.308594 V 13.677868 C 19,12.98556 18.285156,13.000133 18.285156,13.000133 H 14.714844 L 13.285156,11 Z"/>
 </svg>
